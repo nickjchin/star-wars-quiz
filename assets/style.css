@@ -1,3 +1,6 @@
+* {
+  font-family: Verdana;
+}
 body {
   margin: 0;
   background-image: url(./images/stars.png);
@@ -11,4 +14,36 @@ header {
   border: 3px solid #2e67f8;
   border-radius: 30px;
   box-shadow: 0 0 50px #2e67f8;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.trivia-question,
+.timer {
+  height: 400px;
+  margin: 40px 50px;
+  padding: 10px;
+  text-align: center;
+  background-color: white;
+  border-radius: 30px;
+}
+
+.trivia-question {
+  border: 3px solid #eb212e;
+  box-shadow: 0 0 50px #eb212e;
+  flex: 1 1 50%;
+}
+
+.timer {
+  border: 3px solid #2ff924;
+  box-shadow: 0 0 50px #2ff924;
+  flex: 1 1 25%;
+}
+
+.timer-count {
+  font-size: 3em;
 }
