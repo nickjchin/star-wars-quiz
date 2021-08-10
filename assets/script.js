@@ -32,10 +32,60 @@ function startGame() {
   startTimer();
 }
 
+// Questions
+var questions = [
+  {
+    question: "How many lightsaber forms are there?",
+    choiceA: 7,
+    choiceB: 8,
+    choiceC: 9,
+    choiceD: 10,
+    correct: "A. There are 7 lightsaber forms.The forms are Shii-Cho, Makashi, Soresu, Shien/Djem, Niman, and Juyo/Vaapad."
+  },
+  {
+    question: "Who commissioned the clone army?",
+    choiceA: "General Grevious",
+    choiceB: "Count Dooku",
+    choiceC: "Sifo-Dyas",
+    choiceD: "Darth Sidious",
+    correct: "C. Sifo-Dyas commissioned the clone army."
+  },
+  {
+    question: "Who is Clone Force 99 named after",
+    choiceA: "Captain Rex",
+    choiceB: "Clone 99",
+    choiceC: "Ashoka Tano",
+    choiceD: "Boba Fett",
+    correct: "B. Clone Force 99 are named after defective Clone 99."
+  },
+  {
+    question: "Who lives on the planet Dagobah?",
+    choiceA: "Obi Wan Kenobi",
+    choiceB: "Luke Skywalker",
+    choiceC: "Chewbacca",
+    choiceD: "Yoda",
+    correct: "D. Yoda lived on Dagobah to avoid being found by the new empire."
+  },
+  {
+    question: "Who is the original owner of the Millenium Falcon?",
+    choiceA: "Han Solo",
+    choiceB: "Chewbacca",
+    choiceC: "Lando Calrissian",
+    choiceD: "Jabba the Hutt",
+    correct: "C. Lando Calrissian was the original owner of the Millenium Falcon after he lent it to Han and Chewy."
+  },
+];
+
 // renderQuestions function ... displays questions to users
-// function renderQuestions() {
-    
-// }
+// randomly choose question from array and assign it to a variable
+function renderQuestions() {
+    var lastQuestion = questions.length - 1;
+    var runningQuestion = 0;
+    var qIndex =  questions[runningQuestion];
+
+    multipleChoiceEl.innerHTML = "<p>".
+
+}
 
 // function userInfo(){
 //     // Display Score
@@ -123,9 +173,10 @@ function gameOver() {
   //  userInfo();
 }
 
-function setScore(){
-    var initials = document.getElementById("#initials").value;
-    localStorage.setItem(initials, scoreCounter);
+// stores initials and score counter to localstorage
+function setScore() {
+  var initials = document.getElementById("#initials").value;
+  localStorage.setItem(initials, scoreCounter);
 }
 
 // Timer Function
