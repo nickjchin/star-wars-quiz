@@ -323,16 +323,19 @@ function gameOver() {
 
   addScoresButton.addEventListener("click", function (event) {
     event.preventDefault();
+
+    var existingUserInfo = JSON.parse(localStorage.getItem("allScores"));
+    if (existingUserInfo == null) existingUserInfo = [];
     var userInitials = document.getElementById("initials").value;
     var highscoresDisplay = document.getElementById("score-list").value;
+    var userHighScoreInfo = { initials: userInitials, score: scoreCounter };
+    localStorage.setItem("userHighScoreInfo", JSON.stringify(userHighScoreInfo));
+    // store allScores to localStorage
+    existingUserInfo.push(userHighScoreInfo);
+    localStorage.setItem("allScores", JSON.stringify(existingUserInfo));
 
-    var userHighScoreInfo = [{ initials: userInitials, score: scoreCounter }];
-
-    if (!userInitials === "") {
-      input.setAttribute("placeholder", "Please Enter Initials!");
-    } else {
-      localStorage.setItem("userHighScoreInfo", JSON.stringify(userHighScoreInfo));
-    }
+    var userInfoArr = [];
+    var userInfoObj = { initials: userInitials, score: scoreCounter };
 
     // startButton.onclick = init;}
   });
