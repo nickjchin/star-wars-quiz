@@ -1,46 +1,48 @@
-var multipleChoiceEl = document.querySelector(".multiple-choice");
 var timerElement = document.querySelector(".timer-count");
 var startButton = document.querySelector(".start-button");
 var scoreList = document.querySelector(".score-list");
 var scoreCounter = document.querySelector(".score-counter");
 var userInfo = document.querySelector(".user-info");
+var qBlock = document.getElementById("question-block");
 
 var timer;
 var timerCount;
 var isCorrect = false;
 var userInitials;
 scoreCounter = 0;
+var usersAnsers = "";
 
-// questions
-// 1. how many lightsaber forms are there?
-// 1a. 7, ....
-// 2. how many is clone force 99 named after
-// 2a. Clone 99
-// 3. Who commissioned the clone army
-// 3a. syfodius
-// 4. Who lives on degoba
-// 4a. Yoda
-// 5. Who is the origin owner of the Millenium Falcon
-// 5a. Lando
+startButton.onclick = init;
+
+// init function
+function init() {
+  startGame();
+}
 
 // Start Game when button is clicked
 function startGame() {
   timerCount = 30;
   // Prevents start Button from be being clicked while game has already started
-  startButton.disabled = true;
+  // startButton.disabled = true;
+  startButton.classList.add("hide");
+  startButton.classList.remove("show");
+  qBlock.style.display = "block"; // <-- Set it to block
+  getQuestionValue();
   renderQuestions();
   startTimer();
 }
 
 // Questions
-var questions = [
+var questionsArray = [
   {
     question: "How many lightsaber forms are there?",
     choiceA: 7,
     choiceB: 8,
     choiceC: 9,
     choiceD: 10,
-    correct: "A. There are 7 lightsaber forms.The forms are Shii-Cho, Makashi, Soresu, Shien/Djem, Niman, and Juyo/Vaapad."
+    number: 0,
+    // correct:
+    //   "A. There are 7 lightsaber forms.The forms are Shii-Cho, Makashi, Soresu, Shien/Djem, Niman, and Juyo/Vaapad.",
   },
   {
     question: "Who commissioned the clone army?",
@@ -48,7 +50,8 @@ var questions = [
     choiceB: "Count Dooku",
     choiceC: "Sifo-Dyas",
     choiceD: "Darth Sidious",
-    correct: "C. Sifo-Dyas commissioned the clone army."
+    number: 1,
+    // correct: "C. Sifo-Dyas commissioned the clone army.",
   },
   {
     question: "Who is Clone Force 99 named after",
@@ -56,7 +59,8 @@ var questions = [
     choiceB: "Clone 99",
     choiceC: "Ashoka Tano",
     choiceD: "Boba Fett",
-    correct: "B. Clone Force 99 are named after defective Clone 99."
+    number: 2,
+    // correct: "B. Clone Force 99 are named after defective Clone 99.",
   },
   {
     question: "Who lives on the planet Dagobah?",
@@ -64,7 +68,8 @@ var questions = [
     choiceB: "Luke Skywalker",
     choiceC: "Chewbacca",
     choiceD: "Yoda",
-    correct: "D. Yoda lived on Dagobah to avoid being found by the new empire."
+    number: 3,
+    // correct: "D. Yoda lived on Dagobah to avoid being found by the new empire.",
   },
   {
     question: "Who is the original owner of the Millenium Falcon?",
@@ -72,19 +77,36 @@ var questions = [
     choiceB: "Chewbacca",
     choiceC: "Lando Calrissian",
     choiceD: "Jabba the Hutt",
-    correct: "C. Lando Calrissian was the original owner of the Millenium Falcon after he lent it to Han and Chewy."
+    number: 4,
+    // correct:
+    // "C. Lando Calrissian was the original owner of the Millenium Falcon after he lent it to Han and Chewy.",
   },
 ];
+
+var questionAnswers = ["a", "c", "b", "d", "c"];
+var currentQuestionDisplay = [];
+var currentQuestion = 0;
+
+// function to select object "questions" out of the array
+function getQuestionValue() {
+  currentQuestionDisplay.push(questionsArray[currentQuestion]);
+  console.log(currentQuestion);
+}
 
 // renderQuestions function ... displays questions to users
 // randomly choose question from array and assign it to a variable
 function renderQuestions() {
-    var lastQuestion = questions.length - 1;
-    var runningQuestion = 0;
-    var qIndex =  questions[runningQuestion];
-
-    multipleChoiceEl.innerHTML = "<p>".
-
+  console.log(currentQuestionDisplay);
+  document.getElementById("questionDisplay").innerHTML =
+    currentQuestionDisplay[0].question;
+  document.getElementById("choice1").innerHTML =
+    currentQuestionDisplay[0].choiceA + " forms";
+  document.getElementById("choice2").innerHTML =
+    currentQuestionDisplay[0].choiceB + " forms";
+  document.getElementById("choice3").innerHTML =
+    currentQuestionDisplay[0].choiceC + " forms";
+  document.getElementById("choice4").innerHTML =
+    currentQuestionDisplay[0].choiceD + " forms";
 }
 
 // function userInfo(){
@@ -128,10 +150,15 @@ function renderQuestions() {
 
 // Game Over Function ... Get user info for high score list
 function gameOver() {
-  multipleChoiceEl.textContent = "Game Over";
+  document.getElementById("questionDisplay").innerHTML = "Game Over";
+  document.getElementById("choice1").classList.add("hide");
+  document.getElementById("choice2").classList.add("hide");
+  document.getElementById("choice3").classList.add("hide");
+  document.getElementById("choice4").classList.add("hide");
 
   // Allows start button to be clicked
-  startButton.disabled = false;
+  startButton.classList.add("show");
+  startButton.classList.remove("hide");
 
   // Display Score
   // Created p tag to display congratulations message

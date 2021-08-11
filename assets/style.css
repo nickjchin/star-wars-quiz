@@ -46,6 +46,20 @@ main {
 .large-font {
   font-size: 3em;
 }
-.medium-font {
+.medium-font,
+button {
   font-size: 2em;
+}
+.hide {
+  visibility: hidden;
+}
+.show {
+  visibility: visible;
+}
+button {
+  border-radius: 3px;
+  margin-top: 20px;
+}
+#question-block {
+  display: none;
 }

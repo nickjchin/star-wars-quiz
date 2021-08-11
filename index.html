@@ -14,16 +14,24 @@
       <h1>Star Wars Quiz</h1>
       <p>
         Welcome padawans! Today we are going to test your knowledge about the Star Wars 
-        Opera ranging from the Prequels, the Clone Wars Series, and the Original Trilogy.   
+        Opera with questions ranging from the Prequels, the Clone Wars Series, and the Original Trilogy.   
       </p>
     </header>
 
     <main>
       <!-- Question & Answers -->
       <section class="trivia-question">
-        <div class="multiple-choice large-font">
-          Would you like to start the Star Wars Quiz?
+        <div class="large-font" id = "questionDisplay">
+          Would you like to start the Star Wars Quiz?         
+        </div>
+        <div>
           <button class="start-button">Start</button>
+        </div>  
+        <div id = "question-block">
+          <button class="medium-font choice-button"  id ="choice1"></button>
+          <button class="medium-font choice-button"  id ="choice2"></button>
+          <button class="medium-font choice-button"  id ="choice3"></button>
+          <button class="medium-font choice-button"  id ="choice4"></button>
         </div>
         <div class="user-info"></div>
       </section>
