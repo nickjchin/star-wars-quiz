@@ -95,16 +95,11 @@ function getQuestionValue() {
 // renderQuestions function ... displays questions and choices to users
 function renderQuestions() {
   console.log(currentQuestionDisplay);
-  document.getElementById("question-display").innerHTML =
-    currentQuestionDisplay[0].question;
-  document.getElementById("choice1").innerHTML =
-    currentQuestionDisplay[0].choiceA;
-  document.getElementById("choice2").innerHTML =
-    currentQuestionDisplay[0].choiceB;
-  document.getElementById("choice3").innerHTML =
-    currentQuestionDisplay[0].choiceC;
-  document.getElementById("choice4").innerHTML =
-    currentQuestionDisplay[0].choiceD;
+  document.getElementById("question-display").innerHTML = currentQuestionDisplay[0].question;
+  document.getElementById("choice1").innerHTML = currentQuestionDisplay[0].choiceA;
+  document.getElementById("choice2").innerHTML = currentQuestionDisplay[0].choiceB;
+  document.getElementById("choice3").innerHTML = currentQuestionDisplay[0].choiceC;
+  document.getElementById("choice4").innerHTML = currentQuestionDisplay[0].choiceD;
   // document.getElementById("show-answer").innerHTML = "Answer: ";
 }
 
@@ -331,17 +326,15 @@ function gameOver() {
     var userInitials = document.getElementById("initials").value;
     var highscoresDisplay = document.getElementById("score-list").value;
 
-    var userHighScoreInfo = { initials: userInitials, score: scoreCounter };
+    var userHighScoreInfo = [{ initials: userInitials, score: scoreCounter }];
 
-    if (userInitials === "") {
+    if (!userInitials === "") {
       input.setAttribute("placeholder", "Please Enter Initials!");
+    } else {
+      localStorage.setItem("userHighScoreInfo", JSON.stringify(userHighScoreInfo));
     }
 
-    localStorage.setItem(
-      "userHighScoreInfo",
-      JSON.stringify(userHighScoreInfo)
-    );
-    startButton.onclick = init;
+    // startButton.onclick = init;}
   });
 
   // if ((startButton.onclick = init)) {
@@ -353,7 +346,7 @@ function gameOver() {
 }
 
 // stores initials and score counter to localstorage
-function setScore() {
-  var initials = document.getElementById("#initials").value;
-  localStorage.setItem(initials, scoreCounter);
-}
+// function setScore() {
+//   var initials = document.getElementById("#initials").value;
+//   localStorage.setItem(initials, scoreCounter);
+// }
