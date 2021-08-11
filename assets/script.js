@@ -1,6 +1,5 @@
 var timerEl = document.querySelector(".timer-count");
 var startButton = document.querySelector(".start-button");
-var scoreList = document.querySelector(".score-list");
 var scoreCounter = document.querySelector(".score-counter");
 var userInfo = document.querySelector(".user-info");
 var qBlock = document.getElementById("question-block");
@@ -8,7 +7,6 @@ var isGameOver = false;
 
 var timer;
 var timerCount;
-var userInitials;
 scoreCounter = 0;
 var gameIsOver;
 
@@ -278,7 +276,7 @@ function gameOver() {
   qBlock.setAttribute("style", "display: none");
 
   // Shows start button
-  startButton.setAttribute("style", "display: inline-block");
+  // startButton.setAttribute("style", "display: inline-block");
 
   // Resets Show correct/incorrect
   document.getElementById("show-answer").innerHTML = "";
@@ -311,7 +309,8 @@ function gameOver() {
 
   // Set attributes to button
   submitButton.setAttribute("type", "submit");
-  submitButton.setAttribute("value", "Submit");
+  submitButton.setAttribute("value", "submit");
+  submitButton.setAttribute("id", "add-score");
   submitButton.innerHTML = "Submit";
 
   // Append form elements to form
@@ -323,12 +322,32 @@ function gameOver() {
   userInfo.appendChild(pTag);
   userInfo.appendChild(form);
 
-  // getUserInfo();
+  // Get users info
 
-  if ((startButton.onclick = init)) {
-    getElementById("question-display").setAttribute("style", "display: block");
-    querySelector(".user-info").setAttribute("style", "display: none;");
-  }
+  var addScoresButton = document.getElementById("add-score");
+
+  addScoresButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    var userInitials = document.getElementById("initials").value;
+    var highscoresDisplay = document.getElementById("score-list").value;
+
+    var userHighScoreInfo = { initials: userInitials, score: scoreCounter };
+
+    if (userInitials === "") {
+      input.setAttribute("placeholder", "Please Enter Initials!");
+    }
+
+    localStorage.setItem(
+      "userHighScoreInfo",
+      JSON.stringify(userHighScoreInfo)
+    );
+    startButton.onclick = init;
+  });
+
+  // if ((startButton.onclick = init)) {
+  //   getElementById("question-display").setAttribute("style", "display: block");
+  //   querySelector(".user-info").setAttribute("style", "display: none;");
+  // }
 
   return;
 }
