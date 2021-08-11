@@ -95,7 +95,7 @@ function getQuestionValue() {
 // renderQuestions function ... displays questions and choices to users
 function renderQuestions() {
   console.log(currentQuestionDisplay);
-  document.getElementById("questionDisplay").innerHTML =
+  document.getElementById("question-display").innerHTML =
     currentQuestionDisplay[0].question;
   document.getElementById("choice1").innerHTML =
     currentQuestionDisplay[0].choiceA;
@@ -105,7 +105,7 @@ function renderQuestions() {
     currentQuestionDisplay[0].choiceC;
   document.getElementById("choice4").innerHTML =
     currentQuestionDisplay[0].choiceD;
-  // document.getElementById("showAnswer").innerHTML = "Answer: ";
+  // document.getElementById("show-answer").innerHTML = "Answer: ";
 }
 
 // Matches button 1 to questionArray's object's number, which corresponds to correct choice
@@ -117,11 +117,11 @@ function button1Click() {
     console.log(scoreCounter);
     document.getElementById("score-display").innerHTML = scoreCounter;
     console.log(currentQuestionDisplay[0].correct);
-    document.getElementById("showAnswer").innerHTML =
+    document.getElementById("show-answer").innerHTML =
       "Correct: " + currentQuestionDisplay[0].correct;
   } else {
     timerCount = timerCount - 5;
-    document.getElementById("showAnswer").innerHTML =
+    document.getElementById("show-answer").innerHTML =
       "Incorrect: " + currentQuestionDisplay[0].correct;
     scoreCounter += 0;
   }
@@ -144,11 +144,11 @@ function button2Click() {
     console.log(scoreCounter);
     document.getElementById("score-display").innerHTML = scoreCounter;
     console.log(currentQuestionDisplay[0].correct);
-    document.getElementById("showAnswer").innerHTML =
+    document.getElementById("show-answer").innerHTML =
       "Correct: " + currentQuestionDisplay[0].correct;
   } else {
     timerCount = timerCount - 5;
-    document.getElementById("showAnswer").innerHTML =
+    document.getElementById("show-answer").innerHTML =
       "Incorrect: " + currentQuestionDisplay[0].correct;
     scoreCounter += 0;
   }
@@ -171,11 +171,11 @@ function button3Click() {
     console.log(scoreCounter);
     document.getElementById("score-display").innerHTML = scoreCounter;
     console.log(currentQuestionDisplay[0].correct);
-    document.getElementById("showAnswer").innerHTML =
+    document.getElementById("show-answer").innerHTML =
       "Correct: " + currentQuestionDisplay[0].correct;
   } else {
     timerCount = timerCount - 5;
-    document.getElementById("showAnswer").innerHTML =
+    document.getElementById("show-answer").innerHTML =
       "Incorrect: " + currentQuestionDisplay[0].correct;
     scoreCounter += 0;
   }
@@ -198,11 +198,11 @@ function button4Click() {
     console.log(scoreCounter);
     document.getElementById("score-display").innerHTML = scoreCounter;
     console.log(currentQuestionDisplay[0].correct);
-    document.getElementById("showAnswer").innerHTML =
+    document.getElementById("show-answer").innerHTML =
       "Correct: " + currentQuestionDisplay[0].correct;
   } else {
     timerCount = timerCount - 5;
-    document.getElementById("showAnswer").innerHTML =
+    document.getElementById("show-answer").innerHTML =
       "Incorrect: " + currentQuestionDisplay[0].correct;
     scoreCounter += 0;
   }
@@ -220,7 +220,6 @@ function button4Click() {
 function startTimer() {
   timerCount = 30;
   var counter = setInterval(timer, 1000);
-
   function timer() {
     timerCount = timerCount - 1;
     if (timerCount < 0) {
@@ -243,7 +242,7 @@ function gameOver() {
   startButton.classList.remove("hide");
 
   // Resets Show correct/incorrect
-  document.getElementById("showAnswer").innerHTML = "";
+  document.getElementById("show-answer").innerHTML = "";
 
   // Display Score
   // Created p tag to display congratulations message
