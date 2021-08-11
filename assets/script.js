@@ -7,10 +7,9 @@ var qBlock = document.getElementById("question-block");
 
 var timer;
 var timerCount;
-var isCorrect = false;
 var userInitials;
 scoreCounter = 0;
-var usersAnsers = "";
+var gameIsOver;
 
 startButton.onclick = init;
 
@@ -25,7 +24,7 @@ function startGame() {
   // startButton.disabled = true;
   startButton.classList.add("hide");
   startButton.classList.remove("show");
-  qBlock.style.display = "block"; // <-- Set it to block
+  qBlock.setAttribute("style", "display: block"); // <-- Set it to block
   getQuestionValue();
   renderQuestions();
   startTimer();
@@ -115,6 +114,8 @@ function button1Click() {
   var tempAnswer = questionsArray[currentQuestion].number;
   if (tempAnswer == 1) {
     scoreCounter += 100;
+    console.log(scoreCounter);
+    document.getElementById("score-display").innerHTML = scoreCounter;
     console.log(currentQuestionDisplay[0].correct);
     document.getElementById("showAnswer").innerHTML =
       "Correct: " + currentQuestionDisplay[0].correct;
@@ -140,6 +141,8 @@ function button2Click() {
   var tempAnswer = questionsArray[currentQuestion].number;
   if (tempAnswer == 2) {
     scoreCounter += 100;
+    console.log(scoreCounter);
+    document.getElementById("score-display").innerHTML = scoreCounter;
     console.log(currentQuestionDisplay[0].correct);
     document.getElementById("showAnswer").innerHTML =
       "Correct: " + currentQuestionDisplay[0].correct;
@@ -165,6 +168,8 @@ function button3Click() {
   var tempAnswer = questionsArray[currentQuestion].number;
   if (tempAnswer == 3) {
     scoreCounter += 100;
+    console.log(scoreCounter);
+    document.getElementById("score-display").innerHTML = scoreCounter;
     console.log(currentQuestionDisplay[0].correct);
     document.getElementById("showAnswer").innerHTML =
       "Correct: " + currentQuestionDisplay[0].correct;
@@ -190,6 +195,8 @@ function button4Click() {
   var tempAnswer = questionsArray[currentQuestion].number;
   if (tempAnswer == 4) {
     scoreCounter += 100;
+    console.log(scoreCounter);
+    document.getElementById("score-display").innerHTML = scoreCounter;
     console.log(currentQuestionDisplay[0].correct);
     document.getElementById("showAnswer").innerHTML =
       "Correct: " + currentQuestionDisplay[0].correct;
@@ -229,11 +236,7 @@ function startTimer() {
 // Game Over Function ... Get user info for high score list
 function gameOver() {
   // Hides Choices
-  document.getElementById("questionDisplay").innerHTML = "Game Over";
-  document.getElementById("choice1").classList.add("hide");
-  document.getElementById("choice2").classList.add("hide");
-  document.getElementById("choice3").classList.add("hide");
-  document.getElementById("choice4").classList.add("hide");
+  qBlock.setAttribute("style", "display: none");
 
   // Shows start button
   startButton.classList.add("show");
@@ -281,8 +284,10 @@ function gameOver() {
   userInfo.appendChild(pTag);
   userInfo.appendChild(form);
 
-  //  userInfo();
+  getUserInfo();
   startButton.onclick = init;
+
+  return;
 }
 
 // stores initials and score counter to localstorage
