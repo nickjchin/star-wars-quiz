@@ -1,4 +1,4 @@
-var timerElement = document.querySelector(".timer-count");
+var timerEl = document.querySelector(".timer-count");
 var startButton = document.querySelector(".start-button");
 var scoreList = document.querySelector(".score-list");
 var scoreCounter = document.querySelector(".score-counter");
@@ -21,7 +21,6 @@ function init() {
 
 // Start Game when button is clicked
 function startGame() {
-  timerCount = 30;
   // Prevents start Button from be being clicked while game has already started
   // startButton.disabled = true;
   startButton.classList.add("hide");
@@ -40,9 +39,9 @@ var questionsArray = [
     choiceB: 8,
     choiceC: 9,
     choiceD: 10,
-    number: 0,
-    // correct:
-    //   "A. There are 7 lightsaber forms.The forms are Shii-Cho, Makashi, Soresu, Shien/Djem, Niman, and Juyo/Vaapad.",
+    number: 1,
+    correct:
+      "There are 7 lightsaber forms.The forms are Shii-Cho, Makashi, Soresu, Shien/Djem, Niman, and Juyo/Vaapad.",
   },
   {
     question: "Who commissioned the clone army?",
@@ -50,8 +49,8 @@ var questionsArray = [
     choiceB: "Count Dooku",
     choiceC: "Sifo-Dyas",
     choiceD: "Darth Sidious",
-    number: 1,
-    // correct: "C. Sifo-Dyas commissioned the clone army.",
+    number: 3,
+    correct: "Sifo-Dyas commissioned the clone army.",
   },
   {
     question: "Who is Clone Force 99 named after",
@@ -60,7 +59,7 @@ var questionsArray = [
     choiceC: "Ashoka Tano",
     choiceD: "Boba Fett",
     number: 2,
-    // correct: "B. Clone Force 99 are named after defective Clone 99.",
+    correct: "Clone Force 99 are named after defective Clone 99.",
   },
   {
     question: "Who lives on the planet Dagobah?",
@@ -68,8 +67,8 @@ var questionsArray = [
     choiceB: "Luke Skywalker",
     choiceC: "Chewbacca",
     choiceD: "Yoda",
-    number: 3,
-    // correct: "D. Yoda lived on Dagobah to avoid being found by the new empire.",
+    number: 4,
+    correct: "Yoda lived on Dagobah to avoid being found by the new empire.",
   },
   {
     question: "Who is the original owner of the Millenium Falcon?",
@@ -77,9 +76,9 @@ var questionsArray = [
     choiceB: "Chewbacca",
     choiceC: "Lando Calrissian",
     choiceD: "Jabba the Hutt",
-    number: 4,
-    // correct:
-    // "C. Lando Calrissian was the original owner of the Millenium Falcon after he lent it to Han and Chewy.",
+    number: 3,
+    correct:
+      "Lando Calrissian was the original owner of the Millenium Falcon after he lent it to Han and Chewy.",
   },
 ];
 
@@ -89,76 +88,159 @@ var currentQuestion = 0;
 
 // function to select object "questions" out of the array
 function getQuestionValue() {
+  currentQuestionDisplay = [];
   currentQuestionDisplay.push(questionsArray[currentQuestion]);
-  console.log(currentQuestion);
+  console.log("Here");
 }
 
-// renderQuestions function ... displays questions to users
-// randomly choose question from array and assign it to a variable
+// renderQuestions function ... displays questions and choices to users
 function renderQuestions() {
   console.log(currentQuestionDisplay);
   document.getElementById("questionDisplay").innerHTML =
     currentQuestionDisplay[0].question;
   document.getElementById("choice1").innerHTML =
-    currentQuestionDisplay[0].choiceA + " forms";
+    currentQuestionDisplay[0].choiceA;
   document.getElementById("choice2").innerHTML =
-    currentQuestionDisplay[0].choiceB + " forms";
+    currentQuestionDisplay[0].choiceB;
   document.getElementById("choice3").innerHTML =
-    currentQuestionDisplay[0].choiceC + " forms";
+    currentQuestionDisplay[0].choiceC;
   document.getElementById("choice4").innerHTML =
-    currentQuestionDisplay[0].choiceD + " forms";
+    currentQuestionDisplay[0].choiceD;
+  // document.getElementById("showAnswer").innerHTML = "Answer: ";
 }
 
-// function userInfo(){
-//     // Display Score
-//     // Created p tag to display congratulations message
-//     var pTag = document.createElement("p");
+// Matches button 1 to questionArray's object's number, which corresponds to correct choice
+// If choice A is correct + 100 points
+function button1Click() {
+  var tempAnswer = questionsArray[currentQuestion].number;
+  if (tempAnswer == 1) {
+    scoreCounter += 100;
+    console.log(currentQuestionDisplay[0].correct);
+    document.getElementById("showAnswer").innerHTML =
+      "Correct: " + currentQuestionDisplay[0].correct;
+  } else {
+    timerCount = timerCount - 5;
+    document.getElementById("showAnswer").innerHTML =
+      "Incorrect: " + currentQuestionDisplay[0].correct;
+    scoreCounter += 0;
+  }
 
-//     // Set class attribute to gain styling
-//     pTag.setAttribute("class", "medium-font");
+  currentQuestion += 1;
+  if (currentQuestion < questionsArray.length) {
+    getQuestionValue();
+    renderQuestions();
+  } else {
+    gameOver();
+  }
+}
 
-//     pTag.innerHTML = "Congratulations! You scored " + scoreCounter + " points!";
+// Matches button 2 to questionArray's object's number, which corresponds to correct choice
+// If choice B is correct + 100 points
+function button2Click() {
+  var tempAnswer = questionsArray[currentQuestion].number;
+  if (tempAnswer == 2) {
+    scoreCounter += 100;
+    console.log(currentQuestionDisplay[0].correct);
+    document.getElementById("showAnswer").innerHTML =
+      "Correct: " + currentQuestionDisplay[0].correct;
+  } else {
+    timerCount = timerCount - 5;
+    document.getElementById("showAnswer").innerHTML =
+      "Incorrect: " + currentQuestionDisplay[0].correct;
+    scoreCounter += 0;
+  }
 
-//     // Initialized form elements to collect user's initials
-//     var form  = document.createElement("form");
-//     var label = document.createElement("label");
-//     var input = document.createElement("input");
-//     var submitButton = document.createElement("button");
+  currentQuestion += 1;
+  if (currentQuestion < questionsArray.length) {
+    getQuestionValue();
+    renderQuestions();
+  } else {
+    gameOver();
+  }
+}
 
-//     // Set attributes to label
-//     label.setAttribute("for", "Initials")
+// Matches button 3 to questionArray's object's number, which corresponds to correct choice
+// If choice C is correct + 100 points
+function button3Click() {
+  var tempAnswer = questionsArray[currentQuestion].number;
+  if (tempAnswer == 3) {
+    scoreCounter += 100;
+    console.log(currentQuestionDisplay[0].correct);
+    document.getElementById("showAnswer").innerHTML =
+      "Correct: " + currentQuestionDisplay[0].correct;
+  } else {
+    timerCount = timerCount - 5;
+    document.getElementById("showAnswer").innerHTML =
+      "Incorrect: " + currentQuestionDisplay[0].correct;
+    scoreCounter += 0;
+  }
 
-//     // Set attibutes to input
-//     input.setAttribute("type",'text');
-//     input.setAttribute("id", "initials");
-//     input.setAttribute("value", "Enter Initials");
+  currentQuestion += 1;
+  if (currentQuestion < questionsArray.length) {
+    getQuestionValue();
+    renderQuestions();
+  } else {
+    gameOver();
+  }
+}
 
-//     // Set attributes to button
-//     submitButton.setAttribute("type", "submit");
-//     submitButton.setAttribute("value", "Submit");
-//     submitButton.innerHTML = "Submit";
+// Matches button 4 to questionArray's object's number, which corresponds to correct choice
+// If choice D is correct + 100 points
+function button4Click() {
+  var tempAnswer = questionsArray[currentQuestion].number;
+  if (tempAnswer == 4) {
+    scoreCounter += 100;
+    console.log(currentQuestionDisplay[0].correct);
+    document.getElementById("showAnswer").innerHTML =
+      "Correct: " + currentQuestionDisplay[0].correct;
+  } else {
+    timerCount = timerCount - 5;
+    document.getElementById("showAnswer").innerHTML =
+      "Incorrect: " + currentQuestionDisplay[0].correct;
+    scoreCounter += 0;
+  }
 
-//     // Append form elements to form
-//     form.appendChild(label);
-//     form.appendChild(input);
-//     form.appendChild(submitButton);
+  currentQuestion += 1;
+  if (currentQuestion < questionsArray.length) {
+    getQuestionValue();
+    renderQuestions();
+  } else {
+    gameOver();
+  }
+}
 
-//     // Append form and pTag to html
-//     userInfo.appendChild(pTag);
-//     userInfo.appendChild(form);
-//  }
+// Timer Function
+function startTimer() {
+  timerCount = 30;
+  var counter = setInterval(timer, 1000);
+
+  function timer() {
+    timerCount = timerCount - 1;
+    if (timerCount < 0) {
+      clearInterval(timerCount);
+      return;
+    } else if (timerCount == 0) {
+      gameOver();
+    }
+    timerEl.innerHTML = timerCount;
+  }
+}
 
 // Game Over Function ... Get user info for high score list
 function gameOver() {
+  // Hides Choices
   document.getElementById("questionDisplay").innerHTML = "Game Over";
   document.getElementById("choice1").classList.add("hide");
   document.getElementById("choice2").classList.add("hide");
   document.getElementById("choice3").classList.add("hide");
   document.getElementById("choice4").classList.add("hide");
 
-  // Allows start button to be clicked
+  // Shows start button
   startButton.classList.add("show");
   startButton.classList.remove("hide");
+
+  // Resets Show correct/incorrect
+  document.getElementById("showAnswer").innerHTML = "";
 
   // Display Score
   // Created p tag to display congratulations message
@@ -167,6 +249,7 @@ function gameOver() {
   // Set class attribute to gain styling
   pTag.setAttribute("class", "medium-font");
 
+  // Sets p tags text
   pTag.innerHTML = "Congratulations! You scored " + scoreCounter + " points!";
 
   // Initialized form elements to collect user's initials
@@ -181,7 +264,8 @@ function gameOver() {
   // Set attibutes to input
   input.setAttribute("type", "text");
   input.setAttribute("id", "initials");
-  input.setAttribute("value", "Enter Initials");
+  input.setAttribute("placeholder", "Enter Initials");
+  input.setAttribute("class", "medium-font");
 
   // Set attributes to button
   submitButton.setAttribute("type", "submit");
@@ -198,39 +282,11 @@ function gameOver() {
   userInfo.appendChild(form);
 
   //  userInfo();
+  startButton.onclick = init;
 }
 
 // stores initials and score counter to localstorage
 function setScore() {
   var initials = document.getElementById("#initials").value;
   localStorage.setItem(initials, scoreCounter);
-}
-
-// Timer Function
-function startTimer() {
-  timer = setInterval(function () {
-    timerCount--;
-    timerElement.textContent = timerCount;
-    if (timerCount >= 0) {
-      //Test to see if question is answered correctly
-      if (isCorrect && timerCount > 0) {
-        console.log("answer correct, next question");
-        scoreCounter = scoreCounter + 10;
-        console.log(
-          "Your Current score is: " + scoreCounter + "at Time: " + timerCount
-        );
-        // Else if, question is incorrect and deduct 5 seconds
-      } else if (isCorrect == false && timerCount > 0) {
-        timerCount - 5;
-        scoreCounter = scoreCounter + 0;
-        console.log(
-          "Your Current score is: " + scoreCounter + " at Time: " + timerCount
-        );
-        // Else if, timer = 0, game over
-      } else if (timer == 0) {
-        clearInterval(timer);
-        gameOver();
-      }
-    }
-  });
 }
