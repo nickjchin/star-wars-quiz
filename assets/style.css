@@ -50,12 +50,6 @@ main {
 button {
   font-size: 2em;
 }
-.hide {
-  visibility: hidden;
-}
-.show {
-  visibility: visible;
-}
 button {
   border-radius: 3px;
   margin-top: 20px;

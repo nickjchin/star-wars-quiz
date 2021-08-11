@@ -4,6 +4,7 @@ var scoreList = document.querySelector(".score-list");
 var scoreCounter = document.querySelector(".score-counter");
 var userInfo = document.querySelector(".user-info");
 var qBlock = document.getElementById("question-block");
+var isGameOver = false;
 
 var timer;
 var timerCount;
@@ -22,11 +23,12 @@ function init() {
 function startGame() {
   // Prevents start Button from be being clicked while game has already started
   // startButton.disabled = true;
-  startButton.classList.add("hide");
-  startButton.classList.remove("show");
+  timerCount = 30;
+  startButton.setAttribute("style", "display: none;");
   qBlock.setAttribute("style", "display: block"); // <-- Set it to block
   getQuestionValue();
   renderQuestions();
+  isGameOver = false;
   startTimer();
 }
 
@@ -124,6 +126,9 @@ function button1Click() {
     document.getElementById("show-answer").innerHTML =
       "Incorrect: " + currentQuestionDisplay[0].correct;
     scoreCounter += 0;
+    if (timerCount == 0) {
+      gameOver();
+    }
   }
 
   currentQuestion += 1;
@@ -132,6 +137,7 @@ function button1Click() {
     renderQuestions();
   } else {
     gameOver();
+    clearInterval(timerCount);
   }
 }
 
@@ -151,6 +157,9 @@ function button2Click() {
     document.getElementById("show-answer").innerHTML =
       "Incorrect: " + currentQuestionDisplay[0].correct;
     scoreCounter += 0;
+    if (timerCount == 0) {
+      gameOver();
+    }
   }
 
   currentQuestion += 1;
@@ -159,6 +168,7 @@ function button2Click() {
     renderQuestions();
   } else {
     gameOver();
+    clearInterval(timerCount);
   }
 }
 
@@ -178,6 +188,10 @@ function button3Click() {
     document.getElementById("show-answer").innerHTML =
       "Incorrect: " + currentQuestionDisplay[0].correct;
     scoreCounter += 0;
+    if (timerCount == 0) {
+      gameOver();
+      clearInterval(timerCount);
+    }
   }
 
   currentQuestion += 1;
@@ -186,6 +200,7 @@ function button3Click() {
     renderQuestions();
   } else {
     gameOver();
+    clearInterval(timerCount);
   }
 }
 
@@ -205,6 +220,9 @@ function button4Click() {
     document.getElementById("show-answer").innerHTML =
       "Incorrect: " + currentQuestionDisplay[0].correct;
     scoreCounter += 0;
+    if (timerCount == 0) {
+      gameOver();
+    }
   }
 
   currentQuestion += 1;
@@ -213,33 +231,54 @@ function button4Click() {
     renderQuestions();
   } else {
     gameOver();
+    clearInterval(timerCount);
   }
 }
 
 // Timer Function
 function startTimer() {
-  timerCount = 30;
-  var counter = setInterval(timer, 1000);
-  function timer() {
-    timerCount = timerCount - 1;
-    if (timerCount < 0) {
-      clearInterval(timerCount);
-      return;
-    } else if (timerCount == 0) {
-      gameOver();
+  console.log(isGameOver);
+  if (isGameOver == false) {
+    console.log(currentQuestion);
+    timerCount = 30;
+    var counter = setInterval(timer, 1000);
+    function timer() {
+      timerCount = timerCount - 1;
+      if (timerCount < 0) {
+        clearInterval(timerCount);
+        return;
+      } else if (timerCount == 0) {
+        clearInterval(timerCount);
+        gameOver();
+        return;
+      }
+      timerEl.innerHTML = timerCount;
     }
-    timerEl.innerHTML = timerCount;
+  } else {
+    console.log(isGameOver);
+    return;
   }
+}
+
+// Stop function
+function stopTimer() {
+  clearInterval(timerCount);
+  timerCount = 0;
 }
 
 // Game Over Function ... Get user info for high score list
 function gameOver() {
+  stopTimer();
+  isGameOver = true;
+
+  timerEl.innerHTML = "0";
+
+  document.getElementById("question-display").innerHTML = "";
   // Hides Choices
   qBlock.setAttribute("style", "display: none");
 
   // Shows start button
-  startButton.classList.add("show");
-  startButton.classList.remove("hide");
+  startButton.setAttribute("style", "display: inline-block");
 
   // Resets Show correct/incorrect
   document.getElementById("show-answer").innerHTML = "";
@@ -250,6 +289,7 @@ function gameOver() {
 
   // Set class attribute to gain styling
   pTag.setAttribute("class", "medium-font");
+  pTag.setAttribute("id", "congrats-message");
 
   // Sets p tags text
   pTag.innerHTML = "Congratulations! You scored " + scoreCounter + " points!";
@@ -283,8 +323,12 @@ function gameOver() {
   userInfo.appendChild(pTag);
   userInfo.appendChild(form);
 
-  getUserInfo();
-  startButton.onclick = init;
+  // getUserInfo();
+
+  if ((startButton.onclick = init)) {
+    getElementById("question-display").setAttribute("style", "display: block");
+    querySelector(".user-info").setAttribute("style", "display: none;");
+  }
 
   return;
 }
