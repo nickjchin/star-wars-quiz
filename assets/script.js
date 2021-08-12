@@ -4,6 +4,7 @@ var scoreCounter = document.querySelector(".score-counter");
 var userInfo = document.querySelector(".user-info");
 var qBlock = document.getElementById("question-block");
 var isGameOver = false;
+var resetButton = document.getElementById("reset-button");
 
 var timer;
 var timerCount;
@@ -22,8 +23,12 @@ function startGame() {
   // Prevents start Button from be being clicked while game has already started
   // startButton.disabled = true;
   timerCount = 30;
+  scoreCounter = 0;
+  // resetButton.style.display = "none";
   startButton.setAttribute("style", "display: none;");
-  qBlock.setAttribute("style", "display: block"); // <-- Set it to block
+  qBlock.setAttribute("style", "display: block");
+  document.getElementById("question-display", "display: block");
+  userInfo.setAttribute("style", "display:none;");
   getQuestionValue();
   renderQuestions();
   isGameOver = false;
@@ -89,7 +94,6 @@ var currentQuestion = 0;
 function getQuestionValue() {
   currentQuestionDisplay = [];
   currentQuestionDisplay.push(questionsArray[currentQuestion]);
-  console.log("Here");
 }
 
 // renderQuestions function ... displays questions and choices to users
@@ -261,6 +265,10 @@ function stopTimer() {
 
 // Game Over Function ... Get user info for high score list
 function gameOver() {
+  resetButton.setAttribute("style", "display: inline-block;");
+
+  userInfo.setAttribute("style", "display:block;");
+
   stopTimer();
   isGameOver = true;
 
@@ -327,29 +335,34 @@ function gameOver() {
     var existingUserInfo = JSON.parse(localStorage.getItem("allScores"));
     if (existingUserInfo == null) existingUserInfo = [];
     var userInitials = document.getElementById("initials").value;
-    var highscoresDisplay = document.getElementById("score-list").value;
     var userHighScoreInfo = { initials: userInitials, score: scoreCounter };
     localStorage.setItem("userHighScoreInfo", JSON.stringify(userHighScoreInfo));
     // store allScores to localStorage
     existingUserInfo.push(userHighScoreInfo);
     localStorage.setItem("allScores", JSON.stringify(existingUserInfo));
 
-    var userInfoArr = [];
-    var userInfoObj = { initials: userInitials, score: scoreCounter };
+    // get objects from localstorage
+    var localStorageArr = JSON.parse(localStorage.getItem("allScores"));
+    var highscoresDisplay = document.getElementById("score-list");
+    console.log(localStorageArr);
 
-    // startButton.onclick = init;}
+    localStorageArr.sort(function (a, b) {
+      return parseFloat(b.score) - parseFloat(a.score);
+    });
+
+    for (var j = 0; j < 5; j++) {
+      var score = document.createElement("p");
+      console.log(localStorageArr[j]);
+      score.textContent = localStorageArr[j].initials + ":" + localStorageArr[j].score;
+      console.log("score is: " + typeof score);
+      highscoresDisplay.appendChild(score);
+    }
   });
-
-  // if ((startButton.onclick = init)) {
-  //   getElementById("question-display").setAttribute("style", "display: block");
-  //   querySelector(".user-info").setAttribute("style", "display: none;");
-  // }
+  // Reset Button
+  resetButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location.reload();
+  });
 
   return;
 }
-
-// stores initials and score counter to localstorage
-// function setScore() {
-//   var initials = document.getElementById("#initials").value;
-//   localStorage.setItem(initials, scoreCounter);
-// }
